@@ -19,17 +19,17 @@ MOVES = {
     1: (2, 0), 2: (2, 1), 3: (2, 2)
 }
 
-class txt:
+class Txt:
     bold = '\033[1m'
     yellow = '\033[43m'
     inverse = '\033[37m\033[40m'
     end = '\033[0;0m'
 
     def make_title(self):
-        return txt.bold + txt.inverse + self.center(19) + txt.end
+        return Txt.bold + Txt.inverse + self.center(19) + Txt.end
 
     def winner(self):
-        return txt.yellow + self.center(5) + txt.end
+        return Txt.yellow + self.center(5) + Txt.end
 
 
 # Cleans the console
@@ -41,37 +41,36 @@ def clean():
 def choose_char():
     while True:
         try:
-            human = input('Сыграть за "x" или "o"?\n').casefold()
-            assert human in ('x', 'х', 'o', 'о')  # cyrillic or latin
+            chosen = input('Сыграть за "x" или "o"?\n').casefold()
+            assert chosen in ('x', 'х', 'o', 'о')  # cyrillic or latin
         except AssertionError:
             print('Ошибка ввода.')
         else:
-            if human in ('x', 'х'):
+            if chosen in ('x', 'х'):
                 return 'x', 'o'
             else:
                 return 'o', 'x'
 
 
 def get_answer(question):
-    answer = input(f'{question}:\n').casefold()
-    return answer in ('да', 'lf', 'yes')
+    return input(f'{question}:\n').casefold() in ('да', 'lf', 'yes')
 
 
 # Create dict for game score
 # Depend on game type: vs human or vs AI
-def create_score_table(P1, P2):
+def create_score_table(p1, p2):
     scores = {'draw:': 0, 'round:': 1}
-    scores[(f'{P1}:', 'win:')[bool(ai)]] = 0
-    scores[(f'{P2}:', 'lose:')[bool(ai)]] = 0
+    scores[(f'{p1}:', 'win:')[bool(ai)]] = 0
+    scores[(f'{p2}:', 'lose:')[bool(ai)]] = 0
     return scores
 
 
 # Print field with rows and columns
 def print_field():
     # Title with scores
-    print(txt.make_title('round: ' + str(game_score['round:'])))
+    print(Txt.make_title('round: ' + str(game_score['round:'])))
     score_line = ' '.join(key + str(value) for key, value in game_score.items() if key != 'round:')
-    print(txt.make_title(score_line))
+    print(Txt.make_title(score_line))
 
     # Body
     print('┌─────┬─────┬─────┐')
@@ -108,11 +107,11 @@ def check_win_cond(char):
     # Check player reached any wining combination
     for condition in WIN_CONDITIONS:
         if condition.issubset(PLAYERS[char]):
-            
+
             # Highlights winner's row
             for coord in condition:
                 x, y = MOVES[coord]
-                field[x][y] = txt.winner(char.center(3))
+                field[x][y] = Txt.winner(char.center(3))
             return True
 
     return False
@@ -209,6 +208,7 @@ sleep(0.5)
 # Play vs AI or vs human
 if get_answer('Введите "да", если хотите сыграть с компьютером'):
     human, ai = choose_char()
+    player1 = player2 = None
 else:
     ai = False
     player1 = input('Введите имя первого игрока:\n')[:3]
