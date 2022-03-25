@@ -1,6 +1,5 @@
 # learn-basics
-Usual Tic Tac Toe.
 
-Homework from SkillFactory course.
-  * No GUI
-  * Has simpliest AI
+Homeworks from SkillFactory course.
+
+naval battle is waiting for update to working version
