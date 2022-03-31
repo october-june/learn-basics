@@ -2,4 +2,4 @@
 
 Homeworks from SkillFactory course.
 
-naval battle is waiting for update to working version
+Naval battle is playable now!
