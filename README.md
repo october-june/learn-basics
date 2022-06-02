@@ -1,3 +1,3 @@
 # Homeworks from SkillFactory course
 
-Naval battle is playable now!
+New homework — Simple Exchange Rate bot for Telegram. Based on Aiogram.
